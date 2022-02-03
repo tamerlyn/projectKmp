@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title> Shrek is love, Shrek is life</title>
+        <link rel="icon" type="image/png" href="/static/assets/media/favicon.png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <link type="text/css" href="/static/assets/css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <header class="header-global mh-5">
+            <nav class="navbar fixed-top navbar-dark bg-dark">
+                <div class="container-fluid mh-5">
+                    <a id="sound-control" class="btn btn-dark">
+                        <img id="sound-img" src="/static/assets/media/muted.png" alt="Logo" width="32px" height="32px">
+                    </a>
+                    
+                    <form class="w-75" method="post">
+                        {% csrf_token %}
+    
+                        <div class="d-flex form-group">
+                            <div class="input-group">{{ form.text }}</div>
+                            <div class="input-group">{{ form.search }}</div> 
+                            <button class="btn btn-outline-success" type="submit" id="search-button" disabled>Поиск</button>  
+                        </div>
+                    </form>
+
+                    <a href="{% url 'logout' %}" class="btn btn-dark btn-outline-light">Выйти</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <video id="background" autoplay muted loop>
+                <source src="/static/assets/media/home_bg.mp4" type="video/mp4">
+            </video>
+       
+            <div class="container-fluid overflow-auto story">
+                <pre id="raw_text" class="story-text">{{ res | safe }}</pre>
+            </div>
+        </main>
+
+        <footer id="footer" class="row bg-dark text-white align-items-end">
+            <div class="col-4 text-center">
+                <span>ТУСУР БИС</br>
+                Алгоритм Кнута–Морриса–Пратта</span>
+            </div>
+            <div class="col-4 text-center">
+                <span>Томск 2021/2022</span>
+            </div>
+            <div class="col-4 text-center">
+                <span>Разработчик проекта: Студентка гр. 740-1</br>
+                Никифорова Екатерина Алексеевна</span>
+            </div>
+        </footer>
+
+        <script src="/static/assets/js/home.js"></script>
+        <script type="text/javascript"> 
+            window.onload = setTimeout(function() {
+                var count = "{{count|safe}}";
+                if (count == 0)
+                    alert("Совпадений не найдено");
+                if (count > 0)
+                    alert("Найдено совпадений: " + count);
+            }, 1500);
+        </script>
+
+    </body>
+</html>
